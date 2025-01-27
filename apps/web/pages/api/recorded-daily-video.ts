@@ -15,6 +15,7 @@ import logger from "@calcom/lib/logger";
 import { safeStringify } from "@calcom/lib/safeStringify";
 import { defaultHandler } from "@calcom/lib/server";
 import prisma from "@calcom/prisma";
+import { generateSummary } from "@calcom/web/lib/daily-webhook/generateSummary";
 import { getBooking } from "@calcom/web/lib/daily-webhook/getBooking";
 import { getBookingReference } from "@calcom/web/lib/daily-webhook/getBookingReference";
 import { getCalendarEvent } from "@calcom/web/lib/daily-webhook/getCalendarEvent";
@@ -29,8 +30,6 @@ import {
   triggerRecordingReadyWebhook,
   triggerTranscriptionGeneratedWebhook,
 } from "@calcom/web/lib/daily-webhook/triggerWebhooks";
-
-import { generateSummary } from "@lib/daily-webhook/generateSummary";
 
 const log = logger.getSubLogger({ prefix: ["daily-video-webhook-handler"] });
 
