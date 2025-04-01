@@ -98,13 +98,23 @@ export function useInitialFormValues({
         view: rescheduleUid ? "reschedule" : "booking",
       });
 
+      // Handle firstName and lastName directly from extraOptions before parsing
+      const nameFromFirstLast =
+        extraOptions.firstName || extraOptions.lastName
+          ? {
+              firstName: (extraOptions.firstName as string) || "",
+              lastName: (extraOptions.lastName as string) || "",
+            }
+          : undefined;
+
       const parsedQuery = await querySchema.parseAsync({
         ...extraOptions,
-        name: prefillFormParams.name,
+        name: nameFromFirstLast || prefillFormParams.name,
         // `guest` because we need to support legacy URL with `guest` query param support
         // `guests` because the `name` of the corresponding bookingField is `guests`
         guests: prefillFormParams.guests,
       });
+
       const parsedLastBookingResponse = z.record(z.any()).nullish().parse(lastBookingResponse);
 
       const defaultUserValues = {
